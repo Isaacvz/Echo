@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 import json
+from main.views import logged
 
 def login_ajax(request):
     if request.method == "POST":
@@ -17,7 +18,7 @@ def login_ajax(request):
 
             if user is not None:
                 login(request, user) # Crea la sesión en el servidor
-                return JsonResponse({"status": "success", "message": "¡Bienvenido!"})
+                return JsonResponse({"status": "success", "redirect": "/chat/"})
             else:
                 return JsonResponse({"status": "error", "message": "Usuario o contraseña incorrectos"}, status=401)
         except Exception as e:

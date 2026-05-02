@@ -40,7 +40,10 @@ async function autenticarUsuario(username, password) {
 
         if (response.ok) {
             console.log(data.message);
-            alert("Login Succesfull."); // Redirigir al éxito
+            if(data.redirect) {
+                window.location.href = data.redirect;                
+            } // Redirigir al éxito
+
         } else {
             alert("Error: " + data.message);
         }

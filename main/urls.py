@@ -16,12 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.decorators import login_required
 from .views import login_view, logged
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_view, name='login'),
     path('auth/', include('main.aut.urls')), # aputamos a la carpeta de la app
-    path('chat/', include('main.chat.urls')),
-    path('chat/usuario', logged, name='chat')
+    path('chat/app/', include('main.chat.urls')),
+    path('chat/', login_required(logged), name='chat')
 ]
