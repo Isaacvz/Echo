@@ -8,7 +8,18 @@
     <link rel="stylesheet" href="{% static 'css/chat.css' %}"></head>
 </head>
 <body>
-    <h1>Hello Zara</h1>
+    <h1 class="hdr1">Hello Zara</h1>
+    <div id="chat">        
+    </div> 
+    <div class="input-area">
+        <input type="text" id="mensajeInput" placeholder="Write a message">
+        <button onclick="enviarMensaje(document.getElementById('mensajeInput').value)">
+            Send
+        </button>
+    </div>
+    <script>
+        window.currentUsername = "{{ username }}";
+    </script>
     <script src="../static/js/chat.js"></script>
 </body>
 </html>

@@ -4,4 +4,4 @@ def login_view(request):
     return render(request, 'login.html')
 
 def logged(request):
-    return render(request, 'chat.html')
+    return render(request, 'chat.html', {'username': request.user.username})
