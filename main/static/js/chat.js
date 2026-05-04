@@ -1,4 +1,8 @@
-const socket = new WebSocket("ws://localhost:8000/ws/chat/app/")
+// Detectar si es desarrollo o producción
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+const wsHost = isLocalhost ? 'localhost:8000' : window.location.host;
+const socket = new WebSocket(`${wsProtocol}//${wsHost}/ws/chat/app/`)
 
 socket.onopen = function() {
     console.log("Conectando al chat");
