@@ -15,14 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.contrib.auth.decorators import login_required
+from django.views.static import serve
+from django.conf import settings
 from .views import login_view, logged
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_view, name='login'),
-    path('auth/', include('main.aut.urls')), # aputamos a la carpeta de la app
+    path('auth/', include('main.aut.urls')),
     path('chat/app/', include('main.chat.urls')),
-    path('chat/', login_required(logged), name='chat')
+    path('chat/', login_required(logged), name='chat'),
+    # Ruta para servir archivos estáticos directamente desde Django
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.BASE_DIR / 'main/static'}),
 ]
