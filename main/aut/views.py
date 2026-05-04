@@ -3,9 +3,11 @@ from django.shortcuts import render
 # Create your views here.
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import json
 from main.views import logged
 
+@csrf_exempt
 def login_ajax(request):
     if request.method == "POST":
         try:
