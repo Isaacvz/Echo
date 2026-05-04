@@ -96,12 +96,25 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+import os
+import dj_database_url
+
+# Usar PostgreSQL si DATABASE_URL está configurada (Supabase), sino SQLite
+database_url = os.environ.get('DATABASE_URL')
+
+if database_url:
+    # Configuración para Supabase/PostgreSQL
+    DATABASES = {
+        'default': dj_database_url.parse(database_url)
     }
-}
+else:
+    # SQLite para desarrollo local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
